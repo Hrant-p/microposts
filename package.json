@@ -1,0 +1,11 @@
+{
+  "name": "microposts",
+  "version": "1.0.0",
+  "description": "vanilla js",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Hrant Poghosyan",
+  "license": "ISC"
+}
