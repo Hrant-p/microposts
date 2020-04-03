@@ -26,7 +26,6 @@ function tabClickHandler(event) {
 
         const activeTab = this.tabs.find(t => t.name === event.target.dataset.name);
         this.tabs.forEach(t => t.component.hide());
-        console.log(activeTab.component);
         activeTab.component.show();
     }
 }

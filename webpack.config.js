@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
@@ -12,7 +12,11 @@ module.exports = (env = {}) => {
     const isDev = mode === "development";
 
     const getStyleLoaders = () => {
-        return [isProd ? MiniExtractPlugin.loader : "style-loader", "css-loader"];
+        return [
+            isProd ? MiniCssExtractPlugin.loader : "style-loader",
+            "css-loader",
+            "sass-loader"
+        ];
     };
 
     const getPlugins = () => {
@@ -63,13 +67,13 @@ module.exports = (env = {}) => {
                 // Loading CSS
                 {
                     test: /\.css$/i,
-                    use: getStyleLoaders()
+                    use: ['style-loader', ...getStyleLoaders()]
                 },
 
                 // Loading SASS/SCSS
                 {
                     test: /\.s[ca]ss$/i,
-                    use: [...getStyleLoaders(), "sass-loader"]
+                    use: getStyleLoaders()
                 },
 
                 // Loading images

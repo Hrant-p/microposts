@@ -2,7 +2,7 @@ import Nav from './components/Nav/Nav';
 import {Favourite} from "./components/Favourite/Favourite";
 import {Posts} from "./components/Posts/Posts";
 import {Create} from "./components/Create/Create";
-
+import './index.scss';
 const nav = new Nav('navigation');
 
 const favourite = new Favourite('favourite');
