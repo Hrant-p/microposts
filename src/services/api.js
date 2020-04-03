@@ -30,6 +30,17 @@ class Api {
       console.error(e);
     }
   }
+
+  async fetchPostById(id) {
+    try {
+      const request = new Request(`${this.url}/posts/${id}.json`, {
+        method: 'get'
+      });
+      return useRequest(request);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 export const apiService = new Api('https://microposts-2020.firebaseio.com');

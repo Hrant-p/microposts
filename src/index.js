@@ -8,7 +8,7 @@ import { Loader } from './components/Loader/Loader';
 const nav = new Nav('navigation');
 const loader = new Loader('loader');
 
-const favourite = new Favourite('favourite');
+const favourite = new Favourite('favourite', { loader });
 const posts = new Posts('posts', { loader });
 const create = new Create('create');
 
