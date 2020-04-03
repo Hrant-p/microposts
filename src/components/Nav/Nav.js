@@ -1,4 +1,19 @@
-import { Component } from '../../core/Component';
+import Component from '../../core/Component';
+
+function tabClickHandler(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('tab')) {
+    Array.from(this.$el.querySelectorAll('.tab')).forEach(tab => {
+      tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    const activeTab = this.tabs.find(t => t.name === event.target.dataset.name);
+    this.tabs.forEach(t => t.component.hide());
+    activeTab.component.show();
+  }
+}
+
 
 class Nav extends Component {
   constructor(id) {
@@ -13,20 +28,6 @@ class Nav extends Component {
 
   registerTabs(tabs) {
     this.tabs = tabs;
-  }
-}
-
-function tabClickHandler(event) {
-  event.preventDefault();
-  if (event.target.classList.contains('tab')) {
-    Array.from(this.$el.querySelectorAll('.tab')).forEach(tab => {
-      tab.classList.remove('active');
-    });
-    event.target.classList.add('active');
-
-    const activeTab = this.tabs.find(t => t.name === event.target.dataset.name);
-    this.tabs.forEach(t => t.component.hide());
-    activeTab.component.show();
   }
 }
 

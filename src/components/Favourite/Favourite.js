@@ -1,9 +1,7 @@
-import {Component} from "../../core/Component";
-
+import Component from '../../core/Component';
 
 export class Favourite extends Component {
-    constructor(id) {
-        super(id);
-    }
-
+  constructor(id) {
+    super(id);
+  }
 }
