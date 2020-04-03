@@ -5,11 +5,9 @@ class Component {
   }
 
   onHide() {
-
   }
 
   onShow() {
-
   }
 
   init() {
