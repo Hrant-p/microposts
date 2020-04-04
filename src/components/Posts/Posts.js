@@ -1,24 +1,25 @@
 import Component from '../../core/Component';
 import { apiService } from '../../services/api';
 import { TransformService } from '../../services/TransformService';
+import { renderPosts } from '../../helpers/renderPosts';
 
 function onClick(event) {
   const $el = event.target;
-  const { id } = $el.dataset;
+  const { id, name } = $el.dataset;
 
   if (id) {
     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
 
-    if (favourites.includes(id)) {
+    if (favourites.filter(item => item.id === id).length) {
       $el.textContent = 'Save';
       $el.classList.add('button-primary');
       $el.classList.remove('button-danger');
-      favourites = favourites.filter(fId => fId !== id);
+      favourites = favourites.filter(item => item.id !== id);
     } else {
       $el.classList.remove('button-primary');
       $el.classList.add('button-danger');
       $el.textContent = 'Delete';
-      favourites.push(id);
+      favourites.push({ id, name });
     }
 
     localStorage.setItem('favourites', JSON.stringify(favourites));
@@ -40,7 +41,9 @@ export class Posts extends Component {
     this.loader.show();
     const fbData = await apiService.fetchPosts();
     const posts = TransformService.fbObjectToArray(fbData);
-    const html = posts.map(post => renderPosts(post));
+    const html = posts.map(post => renderPosts(post, {
+      withButtons: true
+    }));
     this.loader.hide();
     this.$el.insertAdjacentHTML('afterbegin', html.join(' '));
   }
@@ -48,31 +51,4 @@ export class Posts extends Component {
   onHide() {
     this.$el.innerHTML = '';
   }
-}
-
-function renderPosts(post) {
-  const tag = post.type === 'news'
-    ? '<li class="tag tag-blue tag-rounded">News</li>'
-    : '<li class="tag tag-rounded tag-rounded">Note</li>';
-
-  const button = JSON.parse(localStorage.getItem('favourites') || []).includes(post.id)
-    ? `<button class="button-round button-small button-danger" data-id="${post.id}">Delete</button>`
-    : `<button class="button-round button-small button-primary" data-id="${post.id}">Save</button>`;
-
-  return `
-    <div class="panel">
-      <div class="panel-head">
-        <p class="panel-title">${post.title}</p>
-        <ul class="tags">
-          ${tag}
-        </ul>
-      </div>
-      <div class="panel-body">
-        <p class="multi-line">${post.fulltext}</p>
-      </div>
-      <div class="panel-footer w-panel-footer">
-      <small>${post.date}</small>
-      ${button}
-      </div>
-    </div>`;
 }
