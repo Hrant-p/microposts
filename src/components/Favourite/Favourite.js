@@ -1,8 +1,9 @@
 import Component from '../../core/Component';
 import { apiService } from '../../services/api';
 import { renderPosts } from '../../helpers/renderPosts';
+import renderList from '../../helpers/renderList';
 
-async function linkOnClick(e) {
+async function postOnClick(e) {
   e.preventDefault();
   const { id } = e.target.dataset;
   if (e.target.classList.contains('js-link')) {
@@ -10,7 +11,6 @@ async function linkOnClick(e) {
     try {
       this.loader.show();
       const post = await apiService.fetchPostById(id);
-      console.log(post);
       this.$el.insertAdjacentHTML('afterbegin', renderPosts(post, {
         withButtons: false
       }));
@@ -22,32 +22,6 @@ async function linkOnClick(e) {
   }
 }
 
-const renderList = (list = []) => {
-  const p = document.createElement('p');
-  p.innerText = 'You are nothing added still';
-
-  if (list.length) {
-    const ul = document.createElement('ul');
-    p.setAttribute('class', 'center');
-
-    list
-      .forEach(item => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.classList.add('js-link');
-        a.setAttribute('data-id', item.id);
-        a.setAttribute('href', '#');
-        a.innerText = item.name;
-        li.appendChild(a);
-        ul.appendChild(li);
-      });
-    return ul;
-  }
-
-  return p;
-};
-
-
 export class Favourite extends Component {
   constructor(id, { loader }) {
     super(id);
@@ -56,7 +30,7 @@ export class Favourite extends Component {
   }
 
   init() {
-    this.$el.addEventListener('click', linkOnClick.bind(this));
+    this.$el.addEventListener('click', postOnClick.bind(this));
   }
 
   onShow() {

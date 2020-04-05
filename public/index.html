@@ -43,24 +43,23 @@
       <form id="create">
         <h1 class="h4">Create new post</h1>
         <div class="form-control">
-          <label>Name</label>
-          <input name="title" placeholder="Type here name" />
+          <label for="title">Name</label>
+          <input type="text" id="title" name="title" placeholder="Type here name" />
         </div>
         <div class="form-control">
-          <label>Text</label>
+          <label for="fulltext">Text</label>
           <textarea
             name="fulltext"
+            id="fulltext"
             placeholder="Type here the text"
           ></textarea>
         </div>
         <div class="form-control">
-          <label>Type</label>
-            <label>
-                <select name="type">
+          <label for="type">Type</label>
+                <select name="type" id="type">
                   <option value="note" selected="selected">Post</option>
                   <option value="news">News</option>
                 </select>
-            </label>
         </div>
         <button class="button-primary button-round button-shadow" type="submit">
           Create

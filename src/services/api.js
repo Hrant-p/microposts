@@ -8,19 +8,19 @@ class Api {
     this.url = baseUrl;
   }
 
-  async createPost(post) {
-    try {
-      const request = new Request(`${this.url}/posts.json`, {
-        method: 'post',
-        body: JSON.stringify(post)
-      });
-      return useRequest(request);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+ createPost = async post => {
+   try {
+     const request = new Request(`${this.url}/posts.json`, {
+       method: 'post',
+       body: JSON.stringify(post)
+     });
+     return useRequest(request);
+   } catch (e) {
+     console.error(e);
+   }
+ }
 
-  async fetchPosts() {
+  fetchPosts = async () => {
     try {
       const request = new Request(`${this.url}/posts.json`, {
         method: 'get'
@@ -29,9 +29,9 @@ class Api {
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
-  async fetchPostById(id) {
+  fetchPostById = async id => {
     try {
       const request = new Request(`${this.url}/posts/${id}.json`, {
         method: 'get'
